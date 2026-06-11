@@ -1,0 +1,295 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1680" height="1470" viewBox="0 0 1680 1470" role="img" aria-labelledby="title desc">
+  <title id="title">BrainWave authentication architecture paper layout</title>
+  <desc id="desc">Three-row paper-friendly layout of the BrainWave authentication model with six stages: EEG input, preprocess and patchify, patch encoder, temporal transformer, channel transformer with geometry, and metric-learning objective.</desc>
+  <defs>
+    <linearGradient id="blueHead" x1="0" x2="1">
+      <stop offset="0%" stop-color="#dbeafe"/>
+      <stop offset="100%" stop-color="#eff6ff"/>
+    </linearGradient>
+    <linearGradient id="greenHead" x1="0" x2="1">
+      <stop offset="0%" stop-color="#dcfce7"/>
+      <stop offset="100%" stop-color="#f0fdf4"/>
+    </linearGradient>
+    <linearGradient id="amberHead" x1="0" x2="1">
+      <stop offset="0%" stop-color="#fef3c7"/>
+      <stop offset="100%" stop-color="#fffbeb"/>
+    </linearGradient>
+    <linearGradient id="roseHead" x1="0" x2="1">
+      <stop offset="0%" stop-color="#fee2e2"/>
+      <stop offset="100%" stop-color="#fff1f2"/>
+    </linearGradient>
+    <linearGradient id="violetHead" x1="0" x2="1">
+      <stop offset="0%" stop-color="#ede9fe"/>
+      <stop offset="100%" stop-color="#f5f3ff"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-opacity="0.12"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8.2" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#475569"/>
+    </marker>
+    <style>
+      .bg { fill: #f8fafc; }
+      .title { font: 700 34px 'Segoe UI', Helvetica, Arial, sans-serif; fill: #0f172a; }
+      .subtitle { font: 16px 'Segoe UI', Helvetica, Arial, sans-serif; fill: #334155; }
+      .panel { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; rx: 22; ry: 22; filter: url(#shadow); }
+      .header { stroke: none; rx: 22; ry: 22; }
+      .stage { font: 700 24px 'Segoe UI', Helvetica, Arial, sans-serif; fill: #0f172a; }
+      .stageNo { font: 700 18px 'Segoe UI', Helvetica, Arial, sans-serif; fill: #ffffff; }
+      .label { font: 600 17px 'Segoe UI', Helvetica, Arial, sans-serif; fill: #0f172a; }
+      .body { font: 16px 'Segoe UI', Helvetica, Arial, sans-serif; fill: #334155; }
+      .small { font: 14px 'Segoe UI', Helvetica, Arial, sans-serif; fill: #475569; }
+      .shape { font: 15px 'Consolas', 'Courier New', monospace; fill: #0f172a; }
+      .mini { fill: #ffffff; stroke: #94a3b8; stroke-width: 1.2; rx: 14; ry: 14; }
+      .note { fill: #f8fafc; stroke: #cbd5e1; stroke-width: 1.1; rx: 16; ry: 16; }
+      .token { fill: #ffffff; stroke: #64748b; stroke-width: 1.2; rx: 8; ry: 8; }
+      .tokenCls { fill: #fde68a; stroke: #d97706; stroke-width: 1.2; rx: 8; ry: 8; }
+      .tokenChan { fill: #ddd6fe; stroke: #7c3aed; stroke-width: 1.2; rx: 8; ry: 8; }
+      .opBox { fill: #ffffff; stroke: #94a3b8; stroke-width: 1.2; rx: 12; ry: 12; }
+      .attn { fill: #ffffff; stroke: #f59e0b; stroke-width: 1.4; rx: 14; ry: 14; }
+      .ffn { fill: #ffffff; stroke: #6b7280; stroke-width: 1.4; rx: 14; ry: 14; }
+      .geom { fill: #ffffff; stroke: #8b5cf6; stroke-width: 1.4; rx: 14; ry: 14; }
+      .loss { fill: #ffffff; stroke: #ef4444; stroke-width: 1.4; rx: 14; ry: 14; }
+      .dashRed { fill: none; stroke: #ef4444; stroke-width: 2.2; stroke-dasharray: 8 6; rx: 18; ry: 18; }
+      .dashViolet { fill: none; stroke: #8b5cf6; stroke-width: 2.2; stroke-dasharray: 8 6; rx: 18; ry: 18; }
+      .arrow { fill: none; stroke: #475569; stroke-width: 2.4; marker-end: url(#arrow); }
+      .wave1 { fill: none; stroke: #3b82f6; stroke-width: 2.1; stroke-linecap: round; stroke-linejoin: round; }
+      .wave2 { fill: none; stroke: #60a5fa; stroke-width: 2.1; stroke-linecap: round; stroke-linejoin: round; }
+      .wave3 { fill: none; stroke: #93c5fd; stroke-width: 2.1; stroke-linecap: round; stroke-linejoin: round; }
+      .patch1 { fill: rgba(59,130,246,0.10); stroke: #3b82f6; stroke-width: 1; }
+      .patch2 { fill: rgba(34,197,94,0.10); stroke: #22c55e; stroke-width: 1; }
+      .patch3 { fill: rgba(249,115,22,0.10); stroke: #f97316; stroke-width: 1; }
+      .patch4 { fill: rgba(168,85,247,0.10); stroke: #a855f7; stroke-width: 1; }
+      .patch5 { fill: rgba(236,72,153,0.10); stroke: #ec4899; stroke-width: 1; }
+    </style>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1680" height="1470"/>
+  <text class="title" x="44" y="52">BrainWave Authentication Architecture</text>
+  <text class="subtitle" x="44" y="82">Paper-friendly layout with larger fonts and explicit stage-wise tensor flow</text>
+
+  <!-- Flow arrows between panels -->
+  <path class="arrow" d="M785 307 L835 307"/>
+  <path class="arrow" d="M1525 307 L1525 522 L72 522 L72 552"/>
+  <path class="arrow" d="M785 747 L835 747"/>
+  <path class="arrow" d="M1525 747 L1525 962 L72 962 L72 992"/>
+  <path class="arrow" d="M785 1187 L835 1187"/>
+
+  <!-- Panel A -->
+  <rect class="panel" x="32" y="112" width="748" height="390"/>
+  <rect class="header" x="32" y="112" width="748" height="58" fill="url(#blueHead)"/>
+  <circle cx="72" cy="141" r="20" fill="#2563eb"/>
+  <text class="stageNo" x="66" y="147">1</text>
+  <text class="stage" x="104" y="149">A. EEG input</text>
+
+  <text class="label" x="60" y="208">Multi-channel EEG segment</text>
+  <text class="small" x="60" y="232">Three example channels shown; actual tensor is x in R^(B x C x T)</text>
+
+  <rect class="mini" x="60" y="258" width="250" height="78"/>
+  <text class="small" x="72" y="281">Fp1</text>
+  <path class="wave1" d="M80 303 L102 292 L124 314 L146 280 L168 325 L190 286 L212 302 L234 270 L256 319 L278 289"/>
+
+  <rect class="mini" x="60" y="352" width="250" height="78"/>
+  <text class="small" x="72" y="375">C3</text>
+  <path class="wave2" d="M80 395 L102 384 L124 409 L146 372 L168 404 L190 382 L212 388 L234 368 L256 398 L278 378"/>
+
+  <rect class="mini" x="332" y="258" width="250" height="78"/>
+  <text class="small" x="344" y="281">O2</text>
+  <path class="wave3" d="M352 305 L380 302 L404 296 L426 274 L448 322 L470 304 L494 302 L516 312 L540 280 L562 304"/>
+
+  <rect class="note" x="332" y="352" width="396" height="78"/>
+  <text class="label" x="352" y="381">Interpretation</text>
+  <text class="body" x="352" y="406">Each electrode contributes one temporal waveform.</text>
+  <text class="body" x="352" y="428">Temporal structure is learned first; spatial relations are fused later.</text>
+
+  <rect class="note" x="60" y="448" width="668" height="40"/>
+  <text class="shape" x="84" y="474">x: B x C x T    |    chan_mask: {0,1}^(B x C)    |    pos3d: B x C x 3</text>
+
+  <!-- Panel B -->
+  <rect class="panel" x="836" y="112" width="748" height="390"/>
+  <rect class="header" x="836" y="112" width="748" height="58" fill="url(#greenHead)"/>
+  <circle cx="876" cy="141" r="20" fill="#16a34a"/>
+  <text class="stageNo" x="870" y="147">2</text>
+  <text class="stage" x="908" y="149">B. Preprocess and patchify</text>
+
+  <rect class="opBox" x="864" y="206" width="118" height="42"/>
+  <text class="body" x="898" y="232">nan_to_num</text>
+  <rect class="opBox" x="996" y="206" width="84" height="42"/>
+  <text class="body" x="1022" y="232">clip</text>
+  <rect class="opBox" x="1094" y="206" width="94" height="42"/>
+  <text class="body" x="1118" y="232">norm</text>
+  <rect class="opBox" x="1202" y="206" width="276" height="42"/>
+  <text class="body" x="1340" y="227" text-anchor="middle">optional channel masking</text>
+  <text class="small" x="1340" y="242" text-anchor="middle">batch-wise during training</text>
+
+  <text class="label" x="864" y="288">Patch construction on one example channel</text>
+  <rect class="mini" x="864" y="304" width="614" height="116"/>
+  <path class="wave1" d="M884 368 L918 344 L952 386 L986 332 L1020 398 L1054 338 L1088 360 L1122 324 L1156 390 L1190 350 L1224 368 L1258 340 L1292 362 L1326 346 L1360 356 L1394 334 L1428 350"/>
+  <rect class="patch1" x="884" y="314" width="88" height="96"/>
+  <rect class="patch2" x="972" y="314" width="88" height="96"/>
+  <rect class="patch3" x="1060" y="314" width="88" height="96"/>
+  <rect class="patch4" x="1148" y="314" width="88" height="96"/>
+  <rect class="patch5" x="1236" y="314" width="222" height="96"/>
+  <text class="small" x="922" y="332">p1</text>
+  <text class="small" x="1010" y="332">p2</text>
+  <text class="small" x="1098" y="332">p3</text>
+  <text class="small" x="1186" y="332">p4</text>
+  <text class="small" x="1340" y="332">pN</text>
+
+  <rect class="note" x="864" y="438" width="614" height="50"/>
+  <text class="shape" x="886" y="468">T' = ceil(T / P) * P    |    N = T' / P    |    x_patches: (B*C) x N x P</text>
+
+  <!-- Panel C -->
+  <rect class="panel" x="32" y="552" width="748" height="390"/>
+  <rect class="header" x="32" y="552" width="748" height="58" fill="url(#amberHead)"/>
+  <circle cx="72" cy="581" r="20" fill="#d97706"/>
+  <text class="stageNo" x="66" y="587">3</text>
+  <text class="stage" x="104" y="589">C. Patch encoder</text>
+
+  <text class="label" x="60" y="648">Candidate patch embedders</text>
+  <rect class="opBox" x="60" y="668" width="150" height="70"/>
+  <text class="label" x="106" y="698">linear</text>
+  <text class="small" x="110" y="722">P -&gt; D</text>
+
+  <rect class="opBox" x="230" y="668" width="170" height="70"/>
+  <text class="label" x="282" y="698">mlp_patch</text>
+  <text class="small" x="315" y="714">Linear - GELU</text>
+  <text class="small" x="315" y="729">- Linear</text>
+
+  <rect class="opBox" x="420" y="668" width="150" height="70"/>
+  <text class="label" x="458" y="698">cnn_simple</text>
+  <text class="small" x="495" y="722">local 1D conv</text>
+
+  <rect class="opBox" x="590" y="668" width="150" height="70"/>
+  <text class="label" x="614" y="698">cnn_multiscale</text>
+  <text class="small" x="666" y="714">multi-scale conv</text>
+  <text class="small" x="666" y="729">k = 3, 5, 9</text>
+
+  <text class="label" x="60" y="784">Patch-token sequence</text>
+  <rect class="token" x="60" y="804" width="46" height="40"/><text class="small" x="78" y="830">p1</text>
+  <rect class="token" x="118" y="804" width="46" height="40"/><text class="small" x="136" y="830">p2</text>
+  <rect class="token" x="176" y="804" width="46" height="40"/><text class="small" x="194" y="830">p3</text>
+  <rect class="token" x="234" y="804" width="46" height="40"/><text class="small" x="252" y="830">...</text>
+  <rect class="token" x="292" y="804" width="46" height="40"/><text class="small" x="308" y="830">pN</text>
+
+  <rect class="note" x="382" y="780" width="356" height="132"/>
+  <text class="label" x="406" y="810">Output</text>
+  <text class="shape" x="406" y="838">h_p: (B*C) x N x D</text>
+  <text class="body" x="406" y="868">One D-dimensional token per patch.</text>
+  <text class="body" x="406" y="893">CNN variants learn local morphology first.</text>
+
+  <!-- Panel D -->
+  <rect class="panel" x="836" y="552" width="748" height="390"/>
+  <rect class="header" x="836" y="552" width="748" height="58" fill="url(#roseHead)"/>
+  <circle cx="876" cy="581" r="20" fill="#dc2626"/>
+  <text class="stageNo" x="870" y="587">4</text>
+  <text class="stage" x="908" y="589">D. Temporal transformer per channel</text>
+
+  <rect class="dashRed" x="864" y="632" width="692" height="246"/>
+  <text class="label" x="890" y="666" fill="#b91c1c">Applied independently to each channel</text>
+
+  <text class="label" x="890" y="710">Input strip</text>
+  <rect class="tokenCls" x="890" y="728" width="56" height="42"/><text class="small" x="909" y="754">CLS</text>
+  <rect class="token" x="960" y="728" width="46" height="42"/><text class="small" x="978" y="754">p1</text>
+  <rect class="token" x="1018" y="728" width="46" height="42"/><text class="small" x="1036" y="754">p2</text>
+  <rect class="token" x="1076" y="728" width="46" height="42"/><text class="small" x="1094" y="754">p3</text>
+  <rect class="token" x="1134" y="728" width="46" height="42"/><text class="small" x="1151" y="754">...</text>
+  <rect class="token" x="1192" y="728" width="46" height="42"/><text class="small" x="1209" y="754">pN</text>
+
+  <path class="arrow" d="M1220 786 L1272 786"/>
+
+  <rect class="attn" x="1286" y="706" width="124" height="96"/>
+  <text class="label" x="1325" y="739">MHSA</text>
+  <text class="body" x="1303" y="764">fixed ALiBi bias</text>
+  <text class="body" x="1321" y="787">num_heads</text>
+
+  <path class="arrow" d="M1412 754 L1460 754"/>
+
+  <rect class="ffn" x="1472" y="706" width="84" height="96"/>
+  <text class="label" x="1497" y="739">FFN</text>
+  <text class="body" x="1485" y="764">Linear</text>
+  <text class="body" x="1495" y="785">ReLU</text>
+
+  <text class="small" x="1300" y="834">repeat temporal_depth times</text>
+  <text class="label" x="890" y="846">Retained output</text>
+  <rect class="tokenChan" x="890" y="858" width="56" height="40"/><text class="small" x="910" y="884">z_1</text>
+  <rect class="tokenChan" x="960" y="858" width="56" height="40"/><text class="small" x="980" y="884">z_2</text>
+  <rect class="tokenChan" x="1030" y="858" width="56" height="40"/><text class="small" x="1050" y="884">z_3</text>
+  <rect class="tokenChan" x="1100" y="858" width="56" height="40"/><text class="small" x="1120" y="884">...</text>
+  <rect class="tokenChan" x="1170" y="858" width="56" height="40"/><text class="small" x="1188" y="884">z_C</text>
+
+  <!-- Panel E -->
+  <rect class="panel" x="32" y="992" width="748" height="390"/>
+  <rect class="header" x="32" y="992" width="748" height="58" fill="url(#violetHead)"/>
+  <circle cx="72" cy="1021" r="20" fill="#7c3aed"/>
+  <text class="stageNo" x="66" y="1027">5</text>
+  <text class="stage" x="104" y="1029">E. Channel transformer with geometry</text>
+
+  <rect class="dashViolet" x="60" y="1072" width="692" height="250"/>
+  <text class="label" x="88" y="1106" fill="#6d28d9">Fuse channel tokens with 3D electrode positions</text>
+
+  <circle cx="128" cy="1200" r="62" fill="#ffffff" stroke="#8b5cf6" stroke-width="1.8"/>
+  <circle cx="106" cy="1170" r="5" fill="#8b5cf6"/>
+  <circle cx="148" cy="1170" r="5" fill="#8b5cf6"/>
+  <circle cx="98" cy="1200" r="5" fill="#8b5cf6"/>
+  <circle cx="128" cy="1215" r="5" fill="#8b5cf6"/>
+  <circle cx="158" cy="1200" r="5" fill="#8b5cf6"/>
+  <circle cx="112" cy="1240" r="5" fill="#8b5cf6"/>
+  <circle cx="144" cy="1240" r="5" fill="#8b5cf6"/>
+  <text class="small" x="80" y="1288">pos3d: B x C x 3</text>
+
+  <path class="arrow" d="M192 1200 L248 1200"/>
+  <rect class="geom" x="262" y="1174" width="138" height="54"/>
+  <text class="label" x="300" y="1208">CoordMLP</text>
+
+  <text class="label" x="452" y="1136">Channel token strip</text>
+  <rect class="tokenCls" x="452" y="1158" width="60" height="42"/><text class="small" x="468" y="1184">CLS_c</text>
+  <rect class="tokenChan" x="526" y="1158" width="54" height="42"/><text class="small" x="545" y="1184">z_1</text>
+  <rect class="tokenChan" x="592" y="1158" width="54" height="42"/><text class="small" x="611" y="1184">z_2</text>
+  <rect class="tokenChan" x="658" y="1158" width="54" height="42"/><text class="small" x="677" y="1184">z_3</text>
+  <rect class="tokenChan" x="724" y="1158" width="54" height="42"/><text class="small" x="741" y="1184">...</text>
+
+  <rect class="attn" x="452" y="1230" width="132" height="102"/>
+  <text class="label" x="494" y="1265">MHSA</text>
+  <text class="body" x="475" y="1292">across channels</text>
+  <text class="body" x="474" y="1316">uses pad mask</text>
+
+  <path class="arrow" d="M586 1281 L634 1281"/>
+  <rect class="ffn" x="646" y="1230" width="106" height="102"/>
+  <text class="label" x="681" y="1265">FFN</text>
+  <text class="body" x="666" y="1292">channel mixing</text>
+  <text class="body" x="686" y="1316">per layer</text>
+
+  <!-- Panel F -->
+  <rect class="panel" x="836" y="992" width="748" height="390"/>
+  <rect class="header" x="836" y="992" width="748" height="58" fill="url(#blueHead)"/>
+  <circle cx="876" cy="1021" r="20" fill="#0ea5e9"/>
+  <text class="stageNo" x="870" y="1027">6</text>
+  <text class="stage" x="908" y="1029">F. Embedding objective</text>
+
+  <rect class="loss" x="880" y="1092" width="186" height="62"/>
+  <text class="label" x="937" y="1131">L2 normalization</text>
+
+  <rect class="mini" x="1092" y="1078" width="206" height="182"/>
+  <circle cx="1146" cy="1130" r="8" fill="#3b82f6"/>
+  <circle cx="1166" cy="1148" r="8" fill="#60a5fa"/>
+  <circle cx="1128" cy="1148" r="8" fill="#93c5fd"/>
+  <circle cx="1226" cy="1188" r="8" fill="#fb923c"/>
+  <circle cx="1250" cy="1206" r="8" fill="#fdba74"/>
+  <circle cx="1202" cy="1206" r="8" fill="#f97316"/>
+  <circle cx="1134" cy="1250" r="8" fill="#22c55e"/>
+  <circle cx="1156" cy="1266" r="8" fill="#4ade80"/>
+  <circle cx="1116" cy="1266" r="8" fill="#86efac"/>
+  <text class="small" x="1150" y="1298">embedding space</text>
+
+  <rect class="loss" x="1330" y="1080" width="218" height="98"/>
+  <text class="label" x="1388" y="1118">MultiSimilarityMiner</text>
+  <text class="label" x="1402" y="1146">SupConLoss</text>
+
+  <rect class="note" x="880" y="1200" width="668" height="132"/>
+  <text class="shape" x="908" y="1234">e: B x D</text>
+  <text class="body" x="908" y="1264">Same-subject segments are pulled closer in the embedding space.</text>
+  <text class="body" x="908" y="1290">Different-subject segments are pushed apart.</text>
+  <text class="body" x="908" y="1316">This final embedding is used for brainwave authentication.</text>
+
+</svg>

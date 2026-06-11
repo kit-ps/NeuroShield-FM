@@ -1,0 +1,30 @@
+{
+  "study_db": "bw_optuna_2.db",
+  "study_name": "BrainAuth_SupConLoss",
+  "best_trial_number": 150,
+  "best_trial_value": 12.735380845388944,
+  "replicate_seed": 192,
+  "trial_params_effective": {
+    "embedder": "mlp_patch",
+    "embed_dim": 128,
+    "num_heads": 8,
+    "channel_depth": 6,
+    "temporal_depth": 4,
+    "coord_scale": 100.0,
+    "clip_value": 0.0,
+    "chan_norm": "none",
+    "emb_norm": "l2",
+    "mask_ratio": 0.2,
+    "patch_len": 50,
+    "lr": 0.0001,
+    "weight_decay": 1e-05
+  },
+  "best_val_eer_replicated": 10.28481156239648,
+  "best_epoch_replicated": 96,
+  "best_test_eer_replicated": NaN,
+  "best_test_std_replicated": NaN,
+  "best_ckpt": "./ckpts_bw_replicate_varlen/replicate_best_trial_varlen_best.pth",
+  "final_ckpt": "./ckpts_bw_replicate_varlen/replicate_best_trial_varlen_final.pth",
+  "log_csv": "./ckpts_bw_replicate_varlen/replicate_best_trial_varlen_log.csv",
+  "module": "eeg_auth_train_optuna"
+}
