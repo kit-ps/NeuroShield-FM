@@ -144,9 +144,6 @@ Main scripts:
 - `eeg_auth_finetune.py`
   Fine-tunes the pretrained foundation checkpoint on a downstream target dataset.
 
-- `evaluate_channel_level_experiments.py`
-  Channel-level analyses for both fine-tuned and zero-shot checkpoints.
-
 ## Included Files
 
 This repository includes:
@@ -154,7 +151,6 @@ This repository includes:
 - `eeg_auth_train_optuna.py`
 - `eeg_auth_replicate_best_varlen.py`
 - `eeg_auth_finetune.py`
-- `evaluate_channel_level_experiments.py`
 - `utils_evaluation.py`
 - `examples/minimal_inference.py`
 - `examples/score_authentication.py`
