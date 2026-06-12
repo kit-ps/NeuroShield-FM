@@ -49,7 +49,7 @@ The included foundation checkpoint uses:
 
 Architecture figure:
 
-[brainwave_auth.pdf](figures/brainwave_auth.pdf)
+![NeuroShield architecture](figures/brainwave_auth.png)
 
 ## Checkpoint Placement
 
