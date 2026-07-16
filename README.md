@@ -79,6 +79,12 @@ NeuroShield does not expect raw EDF/BDF files directly. The main training and ev
 
 For reproducible inference, keep these assumptions aligned with the training pipeline:
 
+- **Amplitude unit and quality control:** `X` must contain EEG amplitudes in **microvolts (µV)**. Convert volt-valued data before processing: `X_uv = X_volts * 1e6`.
+
+  To match the released training-data preprocessing, evaluate each candidate window using the 99.5th percentile of its absolute amplitudes:
+
+  - reject the window if this percentile is below `0.5 µV` (effectively flat) or above `400 µV` (artifact-dominated);
+  - otherwise clip its samples to `[-400, +400] µV`.
 - EEG is segmented into fixed windows before inference.
 - The common downstream setting in this repo uses `500` samples per window, corresponding to `1 s` at `500 Hz`.
 - Channels are normalized to canonical EEG labels before reordering.
