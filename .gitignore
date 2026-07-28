@@ -19,3 +19,4 @@ logs/
 *.out
 *.pdf
 !figures/brainwave_auth.pdf
+!docs/static/pdfs/NeuroShield_Paper_arXiv.pdf
