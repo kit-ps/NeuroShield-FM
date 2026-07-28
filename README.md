@@ -11,6 +11,8 @@ This repository accompanies the paper:
 
 *NeuroShield: A Device-Agnostic Foundation Model for EEG Authentication*
 
+[Project website](https://kit-ps.github.io/NeuroShield-FM/) · [Source code](https://github.com/kit-ps/NeuroShield-FM)
+
 If you use this code or the released checkpoint in academic work, please cite the paper:
 
 ```bibtex

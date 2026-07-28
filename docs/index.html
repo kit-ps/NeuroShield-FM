@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- Primary Meta Tags -->
+  <meta name="title" content="NeuroShield: A Device-Agnostic Foundation Model for EEG Authentication - Matin Fallahi, Patricia Arias-Cabarcos, Thorsten Strufe">
+  <meta name="description" content="NeuroShield unifies EEG authentication across varying channels and recording lengths, achieving robust transfer and state-of-the-art accuracy.">
+  <meta name="keywords" content="EEG authentication, brainwave authentication, transformer, foundation model, cross-dataset generalization">
+  <meta name="author" content="Matin Fallahi, Patricia Arias-Cabarcos, Thorsten Strufe">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="English">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Karlsruhe Institute of Technology">
+  <meta property="og:title" content="NeuroShield: A Device-Agnostic Foundation Model for EEG Authentication">
+  <meta property="og:description" content="NeuroShield unifies EEG authentication across varying channels and recording lengths, achieving robust transfer and state-of-the-art accuracy.">
+  <meta property="og:url" content="https://kit-ps.github.io/NeuroShield-FM/">
+  <meta property="og:image" content="https://kit-ps.github.io/NeuroShield-FM/static/images/previewImage.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="NeuroShield: A Device-Agnostic Foundation Model for EEG Authentication - NeuroShield unifies EEG authentication across varying channels and recording lengths, achieving robust transfer and state-of-the-art accuracy.">
+  <meta property="article:published_time" content="2026-06-24T00:00:00.000Z">
+  <meta property="article:author" content="Matin Fallahi">
+  <meta property="article:section" content="Research">
+  <meta property="article:tag" content="EEG authentication">
+  <meta property="article:tag" content="brainwave authentication">
+
+  <!-- Academic/Research Specific -->
+  <meta name="citation_title" content="NeuroShield: A Device-Agnostic Foundation Model for EEG Authentication">
+  <meta name="citation_author" content="Fallahi, Matin">
+  <meta name="citation_author" content="Arias-Cabarcos, Patricia">
+  <meta name="citation_author" content="Strufe, Thorsten">
+  <meta name="citation_publication_date" content="2026">
+  <meta name="citation_pdf_url" content="https://arxiv.org/abs/2606.20673">
+  
+  <!-- Additional SEO -->
+  <meta name="theme-color" content="#2563eb">
+  <meta name="msapplication-TileColor" content="#2563eb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="canonical" href="https://kit-ps.github.io/NeuroShield-FM/">
+  
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://ajax.googleapis.com">
+  <link rel="preconnect" href="https://documentcloud.adobe.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+
+  <title>NeuroShield: A Device-Agnostic Foundation Model for EEG Authentication - Matin Fallahi, Patricia Arias-Cabarcos, Thorsten Strufe</title>
+  
+  <!-- Favicon and App Icons -->
+  <link rel="icon" type="image/svg+xml" href="static/images/brain-solid-full.svg?v=3">
+  <link rel="shortcut-icon" href="static/images/brain-solid-full.svg?v=3">
+  
+  <!-- Critical CSS - Load synchronously -->
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  
+  <!-- Non-critical CSS - Load asynchronously -->
+  <link rel="preload" href="static/css/bulma-carousel.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/bulma-slider.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/fontawesome.all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  
+  <!-- Fallback for browsers that don't support preload -->
+  <noscript>
+    <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  </noscript>
+  
+  <!-- Fonts - Optimized loading -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Defer non-critical JavaScript -->
+  <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script defer src="static/js/bulma-carousel.min.js"></script>
+  <script defer src="static/js/bulma-slider.min.js"></script>
+  <script defer src="static/js/index.js"></script>
+  <script defer src='https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.27.0/plotly.min.js'></script>
+  
+  <!-- Structured Data for Academic Papers -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ScholarlyArticle",
+      "headline": "NeuroShield: A Device-Agnostic Foundation Model for EEG Authentication",
+      "description": "NeuroShield unifies EEG authentication across varying channels and recording lengths, achieving robust transfer and state-of-the-art accuracy.",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Matin Fallahi",
+          "affiliation": {
+            "@type": "Organization",
+            "name": "Karlsruhe Institute of Technology (KIT), Karlsruhe, Germany"
+          }
+        },
+        {
+          "@type": "Person",
+          "name": "Patricia Arias-Cabarcos",
+          "affiliation": {
+            "@type": "Organization",
+            "name": "Joint Research Centre, European Commission"
+          }
+        },
+        {
+          "@type": "Person",
+          "name": "Thorsten Strufe",
+          "affiliation": {
+            "@type": "Organization",
+            "name": "Karlsruhe Institute of Technology (KIT), Karlsruhe, Germany"
+          }
+        }
+      ],
+      "datePublished": "2026-06-12",
+      "dateModified": "2026-06-24",
+      "url": "https://kit-ps.github.io/NeuroShield-FM/",
+      "image": "https://kit-ps.github.io/NeuroShield-FM/static/images/previewImage.png",
+      "keywords": [
+        "EEG authentication",
+        "brainwave authentication",
+        "transformer",
+        "foundation model",
+        "cross-dataset generalization"
+      ],
+      "abstract": "A central challenge in EEG authentication is that models are typically tied to the acquisition settings in which they are trained. In particular, variations in headset hardware, channel layout, and signal duration create heterogeneous recordings that existing models are not designed to handle, causing each new headset or dataset to be treated as a separate model-development problem. This fragmentation limits multi-dataset learning, hinders knowledge transfer, and reduces model reusability. To address this limitation, we present NeuroShield, a reusable foundation model for EEG authentication that learns identity-discriminative embeddings from variable-channel and variable-length EEG recordings through a dual-stage transformer architecture. We pretrain NeuroShield on three public EEG datasets comprising 15,762 subjects and 28,116 sessions, and evaluate transfer on two unseen downstream datasets. Our evaluations show that, after fine-tuning, NeuroShield reduces equal error rate by 0.44–8.06 percentage points relative to the state of the art. NeuroShield further generalizes to segments longer than those seen during training and operates across channel layouts not encountered during pretraining. These results establish NeuroShield as a reusable and adaptable EEG identity encoder across heterogeneous recording settings. We release NeuroShield as open source to support reproducibility and community adoption.",
+      "citation": "Fallahi, M., Arias-Cabarcos, P., & Strufe, T. (2026). NeuroShield: A Device-Agnostic Foundation Model for EEG Authentication.",
+      "isAccessibleForFree": true,
+      "mainEntity": {
+        "@type": "WebPage",
+        "@id": "https://kit-ps.github.io/NeuroShield-FM/"
+      },
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "EEG authentication"
+        },
+        {
+          "@type": "Thing",
+          "name": "brainwave authentication"
+        }
+      ]
+    }
+  </script>
+
+</head>
+<body>
+
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-to-top" onclick="scrollToTop()" title="Scroll to top" aria-label="Scroll to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <!-- More Works Dropdown -->
+  <div class="more-works-container">
+    <button class="more-works-btn" onclick="toggleMoreWorks()" title="View More Works from Our Lab">
+      <i class="fas fa-flask"></i>
+      More Works
+      <i class="fas fa-chevron-down dropdown-arrow"></i>
+    </button>
+    <div class="more-works-dropdown" id="moreWorksDropdown">
+      <div class="dropdown-header">
+        <h4>More Works from Our Lab</h4>
+        <button class="close-btn" onclick="toggleMoreWorks()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="works-list">
+        <a href="https://ieeexplore.ieee.org/abstract/document/11407492/" class="work-item" target="_blank" rel="noopener noreferrer">
+          <div class="work-info">
+            <h5>Advancing Brainwave-Based Biometrics: A Large-Scale, Multi-Session Evaluation</h5>
+            <p>We present the largest cross-session evaluation of EEG-based biometric authentication to date, analyzing over 6,000 recording sessions from 345 subjects. Our study investigates the long-term robustness, scalability, and practical deployment challenges of brainwave-based authentication systems.</p>
+            <span class="work-venue">IEEE Transactions on Biometrics, Behavior, and Identity Science (TBIOM), 2026</span>
+          </div>
+          <i class="fas fa-external-link-alt"></i>
+        </a>
+        <a href="https://dl.acm.org/doi/full/10.1145/3706599.3720118" class="work-item" target="_blank" rel="noopener noreferrer">
+          <div class="work-info">
+            <h5>On the Usability of Next-Generation Authentication: A Study on Eye Movement and Brainwave-based Mechanisms</h5>
+            <p>This work evaluates the usability of next-generation authentication mechanisms based on eye movements and brainwaves. Through a comparative user study, we analyze user acceptance, efficiency, and perceived usability, providing insights into the practical deployment of behavioral biometric authentication systems.</p>
+            <span class="work-venue">CHI EA 2025 (Extended Abstracts of the ACM CHI Conference on Human Factors in Computing Systems)</span>
+          </div>
+          <i class="fas fa-external-link-alt"></i>
+        </a>
+        <a href="https://dl.acm.org/doi/full/10.1145/3579356" class="work-item" target="_blank" rel="noopener noreferrer">
+          <div class="work-info">
+            <h5>Performance and Usability Evaluation of Brainwave Authentication Techniques with Consumer Devices</h5>
+            <p>A comprehensive evaluation of EEG-based authentication methods using consumer-grade brain-computer interface devices. The study investigates both authentication performance and user experience, highlighting the feasibility and limitations of brainwave biometrics in real-world applications.</p>
+            <span class="work-venue">ACM Transactions on Privacy and Security (TOPS), 2023</span>
+          </div>
+          <i class="fas fa-external-link-alt"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <main id="main-content">
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">NeuroShield: A Device-Agnostic Foundation Model for EEG Authentication</h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://ps.tm.kit.edu/english/21_318.php" target="_blank" rel="noopener noreferrer">Matin Fallahi</a><sup>*</sup>,</span>
+                <span class="author-block">
+                  <a href="https://patriarias.net/" target="_blank" rel="noopener noreferrer">Patricia Arias-Cabarcos</a><sup>°</sup>,</span>
+                  <span class="author-block">
+                    <a href="https://ps.tm.kit.edu/21_101.php" target="_blank" rel="noopener noreferrer">Thorsten Strufe</a><sup>*</sup>
+                  </span>
+                  </div>
+
+                  <div class="is-size-5 publication-authors">
+                    <span class="author-block"><sup>*</sup> Karlsruhe Institute of Technology (KIT), Karlsruhe, Germany<br><sup>°</sup>Joint Research Centre, European Commission</span>
+                  </div>
+
+                  <div class="column has-text-centered">
+                    <div class="publication-links">
+
+                      <span class="link-block">
+                        <a href="https://arxiv.org/abs/2606.20673" target="_blank" rel="noopener noreferrer"
+                        class="external-link button is-normal is-rounded is-dark">
+                        <span class="icon">
+                          <i class="fas fa-file-pdf"></i>
+                        </span>
+                        <span>Paper</span>
+                      </a>
+                    </span>
+
+                  <span class="link-block">
+                    <a href="https://github.com/kit-ps/NeuroShield-FM" target="_blank" rel="noopener noreferrer"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a href="https://arxiv.org/abs/2606.20673" target="_blank" rel="noopener noreferrer"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Overview of the NeuroShield architecture-->
+<section class="hero teaser">
+  <div class="container has-text-centered" style="margin-bottom: 2rem">
+    <div class="hero-body">
+      <img
+      src="static/images/NeuroShieldOverview.png"
+      alt="Overview of the NeuroShield architecture"
+      class="hero-image">
+
+      <h2 class="subtitle has-text-centered">
+        Overview of the NeuroShield Architecture
+      </h2>
+    </div>
+  </div>
+</section>
+<!-- End Overview of the NeuroShield architecture -->
+
+<!-- Paper abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            A central challenge in EEG authentication is that models are typically
+            tied to the acquisition settings in which they are trained. In particular,
+            variations in headset hardware, channel layout, and signal duration create
+            heterogeneous recordings that existing models are not designed to handle,
+            causing each new headset or dataset to be treated as a separate model-development
+            problem. This fragmentation limits multi-dataset learning, hinders knowledge
+            transfer, and reduces model reusability. To address this limitation, we present
+            NeuroShield, a reusable foundation model for EEG authentication that learns
+            identity-discriminative embeddings from variable-channel and variable-length
+            EEG recordings through a dual-stage transformer architecture. We pretrain
+            NeuroShield on three public EEG datasets comprising 15,762 subjects and
+            28,116 sessions, and evaluate transfer on two unseen downstream datasets. Our
+            evaluations show that, after fine-tuning, NeuroShield reduces equal error
+            rate by 0.44–8.06 percentage points relative to the state of the art. NeuroShield
+            further generalizes to segments longer than those seen during training and
+            operates across channel layouts not encountered during pretraining. These
+            results establish NeuroShield as a reusable and adaptable EEG identity encoder
+            across heterogeneous recording settings. We release NeuroShield as open source
+            to support reproducibility and community adoption.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End paper abstract -->
+
+<!-- Changelog -->
+  <section class="pipeline-section hero" id="changelog">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Changelog</h2>
+      <div class="timeline-content">
+        <div class="timeline-text">
+          <div class="timeline-item-header">
+            <span class="timeline-item-header">arXiv Preprint Released</span>
+            <span class="changelog-tag tag-new">Preprint</span>
+          </div>
+          <p class="timeline-description">The NeuroShield paper was made publicly available as an
+            <a href="https://arxiv.org/abs/2606.20673">arXiv preprint</a>.</p>
+        </div>
+      </div>
+
+      <div class="timeline-content">
+        <div class="timeline-text">
+          <div class="timeline-item-header">
+            <span class="timeline-item-header">Submitted to IEEE S&P 2027</span>
+            <span class="changelog-tag tag-update">Under Review</span>
+          </div>
+          <p class="timeline-description">NeuroShield was submitted to the
+            <a href="https://sp2027.ieee-security.org/" target="_blank" rel="noopener noreferrer">
+              48th IEEE Symposium on Security and Privacy (IEEE S&P 2027)
+            </a>
+            for peer review.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+<!-- End Changelog -->
+
+<!-- Processing Pipeline -->
+<section class="pipeline-section hero is-light" id="pipeline">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Processing Pipeline</h2>
+      <div class="pipeline-timeline">
+
+        <div class="pipeline-item">
+          <div class="timeline-content">
+            <div class="timeline-text">
+              <div class="pipeline-header">
+                <span class="timeline-item-header">EEG Input</span>
+              </div>
+              <p class="timeline-description">Authentication begins with an EEG segment.</p>
+            </div>
+            <div class="pipeline-image">
+              <img src="static/images/EEGInput.png" alt="EEG Input">
+            </div>
+          </div>
+        </div>
+
+        <div class="pipeline-item">
+          <div class="timeline-content">
+            <div class="timeline-text">
+              <div class="pipeline-header">
+                <span class="timeline-item-header">Temporal Patching</span>
+              </div>
+              <p class="timeline-description">The EEG signal is divided into fixed-length temporal patches, which serve
+                as input tokens for the subsequent transformer-based processing.</p>
+            </div>
+            <div class="pipeline-image">
+              <img src="static/images/Patch.png" alt="Patch">
+            </div>
+          </div>
+        </div>
+
+        <div class="pipeline-item">
+          <div class="timeline-content">
+            <div class="timeline-text">
+              <div class="pipeline-header">
+                <span class="timeline-item-header">Patch Encoder</span>
+              </div>
+              <p class="timeline-description">NeuroShield employs a patch encoder to capture relationships between patches using self-attention.</p>
+            </div>
+            <div class="pipeline-image">
+              <img src="static/images/PatchEncoder.png" alt="PatchEncoder">
+            </div>
+          </div>
+        </div>
+
+        <div class="pipeline-item">
+          <div class="timeline-content">
+            <div class="timeline-text">
+              <div class="pipeline-header">
+                <span class="timeline-item-header">Temporal Transformer</span>
+              </div>
+              <p class="timeline-description">The model generates a compact temporal summary and captures long-range temporal dependencies.</p>
+            </div>
+            <div class="pipeline-image">
+              <img src="static/images/TemporalTransformer.png" alt="TemporalTransformer">
+            </div>
+          </div>
+        </div>
+
+        <div class="pipeline-item">
+          <div class="timeline-content">
+            <div class="timeline-text">
+              <div class="pipeline-header">
+                <span class="timeline-item-header">Channel Transformer</span>
+              </div>
+              <p class="timeline-description">The model uses a learned coordinate encoder mapping each channel position to a geometry-aware positional embedding.</p>
+            </div>
+            <div class="pipeline-image">
+              <img src="static/images/SpatialTransformer.png" alt="SpatialTransformer">
+            </div>
+          </div>
+        </div>
+
+        <div class="pipeline-item">
+          <div class="timeline-content">
+            <div class="timeline-text">
+              <div class="pipeline-header">
+                <span class="timeline-item-header">Embedding Learning</span>
+              </div>
+              <p class="timeline-description">NeuroShield enhances subject separability using supervised contrastive loss.</p>
+            </div>
+            <div class="pipeline-image">
+              <img src="static/images/EmbeddingLearning.png" alt="EmbeddingLearning">
+            </div>
+          </div>
+        </div>
+
+      </div>
+  </div>
+
+</section>
+<!-- End Processing Pipeline -->
+
+<!-- Evaluation of the model -->
+<section class="section hero">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Evaluation</h2>
+        <div class="content has-text-justified">
+          <p>
+            The evaluation of the NeuroShield model supports the view that EEG authentication can be
+            approached as a reusable representation-learning problem
+            rather than as a sequence of isolated dataset-specific models.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Evaluation of the model -->
+
+<!-- Image carousel of Evaluation results -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+
+       <div class="item">
+        <img src="static/images/EERHeatMap.png" alt="Heatmap visualization of the Equal Error Rate across different datasets and training conditions" loading="lazy"/>
+        <h2 class="subtitle has-text-centered">
+          The results show that <strong>NeuroShield achieves strong performance across heterogeneous pretraining settings</strong>, with lower equal error rates (EER) indicated by greener cells within each dataset.
+        </h2>
+      </div>
+      <div class="item">
+        <img src="static/images/InputFlexibilityAnalysis.png" alt="Input Flexibility Analysis visualization" loading="lazy"/>
+        <h2 class="subtitle has-text-centered">
+          The results show that <strong>NeuroShield is robust to varying input durations and channel layouts</strong>. The model generalizes to longer temporal windows than those seen during training (a) and remains largely unaffected by changes in channel ordering (b).
+       </h2>
+     </div>
+     <div class="item">
+      <img src="static/images/MissingVerificationChannelRobustness.png" alt="Robustness to random missing verification channels visualization" loading="lazy"/>
+      <h2 class="subtitle has-text-centered">
+        The results show that <strong>NeuroShield is robust to noisy or missing EEG channels</strong>, as the Equal Error Rate increases only gradually with higher channel-removal rates during verification.
+
+      </h2>
+    </div>
+    <div class="item">
+      <img src="static/images/ChannelGeneralizationAnalysis.png" alt="Training-data and channel-generalization analysis visualization" loading="lazy"/>
+      <h2 class="subtitle has-text-centered">
+        The results show that <strong>NeuroShield benefits from multi-session pretraining data</strong> (a) and achieves comparable performance on both seen and previously unseen EEG channels, demonstrating <strong>strong channel generalization</strong> with low dependence on specific channel identities (b).
+      </h2>
+    </div>
+        <div class="item">
+          <img src="static/images/SpatialAnalysis.png" alt="Channel-level spatial analysis visualization" loading="lazy"/>
+
+          <h2 class="subtitle has-text-centered">
+            The results show that <strong>individual channel removal has only a limited impact on performance</strong>, while single-channel evaluations reveal spatial differences in the biometric information provided by different scalp regions.
+          </h2>
+        </div>
+  </div>
+</div>
+</div>
+</section>
+<!-- End image carousel of Evaluation results -->
+
+
+
+<!-- Visualization of Electrode Positions -->
+<section class="section is-light" id="electrode-positions">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-centered has-text-centered is-3">3D Electrode Positions</h2>
+    <div class="plotter-wrapper">
+      <div id="plotter" aria-label="Interactive 3D visualization of EEG electrode positions"></div>
+    </div>
+
+    <script>
+      const csvData = `
+    ,x,y,z,foundation_training,peers_evaluation,frc_eeg_evaluation
+AF1,-0.018471700,0.079904100,0.032752000,false,true,false
+AF10,0.050435200,0.063869800,-0.048005000,false,true,false
+AF2,0.019820300,0.080301900,0.032764000,false,true,false
+AF3,-0.033700700,0.076837100,0.021227000,true,true,true
+AF4,0.035712300,0.077725900,0.021956000,true,true,true
+AF5,-0.045430700,0.072862200,0.005978000,false,true,false
+AF6,0.046584300,0.073807800,0.006034000,false,true,false
+AF7,-0.054839700,0.068572200,-0.010590000,true,true,false
+AF8,0.055743300,0.069656800,-0.010755000,true,true,false
+AF9,-0.048970800,0.064087200,-0.047683000,false,true,false
+AFZ,0.000231300,0.080771000,0.035417000,true,true,false
+C1,-0.036158000,-0.009983900,0.089752000,true,true,false
+C2,0.037672000,-0.009624100,0.088412000,true,true,false
+C3,-0.065358100,-0.011631700,0.064358000,true,true,false
+C4,0.067117900,-0.010900300,0.063580000,true,true,false
+C5,-0.080280100,-0.013759700,0.029160000,true,true,false
+C6,0.083455900,-0.012776300,0.029208000,true,true,false
+CP1,-0.035513100,-0.047291900,0.091315000,true,true,false
+CP2,0.038383800,-0.047073100,0.090695000,true,true,false
+CP3,-0.063556200,-0.047008800,0.065624000,true,true,false
+CP4,0.066611800,-0.046637200,0.065580000,true,true,false
+CP5,-0.079592200,-0.046550700,0.030949000,true,true,false
+CP6,0.083321800,-0.046101300,0.031206000,true,true,false
+CPZ,0.000385800,-0.047318000,0.099432000,true,true,false
+CZ,0.000400900,-0.009167000,0.100244000,true,false,false
+F1,-0.027495800,0.056931100,0.060342000,true,true,false
+F10,0.072114100,0.042066700,-0.050452000,false,true,false
+F2,0.029514200,0.057601900,0.059540000,true,true,false
+F3,-0.050243800,0.053111200,0.042192000,true,true,true
+F4,0.051836200,0.054304800,0.040814000,true,true,true
+F5,-0.064465800,0.048035300,0.016921000,true,true,false
+F6,0.067914200,0.049829700,0.016367000,true,true,false
+F7,-0.070262900,0.042474300,-0.011420000,true,true,true
+F8,0.073043100,0.044421700,-0.012000000,true,true,true
+F9,-0.070101900,0.041652300,-0.049952000,false,true,false
+FC1,-0.034061900,0.026011100,0.079987000,true,true,false
+FC2,0.034784100,0.026437900,0.078808000,true,true,false
+FC3,-0.060181900,0.022716200,0.055544000,true,true,false
+FC4,0.062293100,0.023722800,0.055630000,true,true,false
+FC5,-0.077214900,0.018643300,0.024460000,true,true,true
+FC6,0.079534100,0.019935700,0.024438000,true,true,true
+FCZ,0.000376100,0.027390000,0.088668000,false,true,false
+FP1,-0.029436700,0.083917100,-0.006990000,true,true,false
+FP2,0.029872300,0.084895900,-0.007080000,true,true,false
+FPZ,0.000112300,0.088247000,-0.001713000,false,true,false
+FT10,0.084113100,0.014364700,-0.050538000,true,true,false
+FT7,-0.080775000,0.014120300,-0.011135000,true,true,false
+FT8,0.081815100,0.015416700,-0.011330000,true,true,false
+FT9,-0.084075900,0.014567300,-0.050429000,true,true,false
+FZ,0.000312200,0.058512000,0.066462000,true,true,false
+IZ,0.000004500,-0.118565000,-0.023078000,false,true,false
+O1,-0.029413400,-0.112449000,0.008839000,true,true,true
+O10,0.029741600,-0.114260003,-0.029255999,false,true,false
+O2,0.029842600,-0.112156000,0.008800000,true,true,true
+O9,-0.029818401,-0.114569999,-0.029216001,false,true,false
+OZ,0.000107600,-0.114892000,0.014657000,true,true,false
+P1,-0.028620300,-0.080524900,0.075436000,true,true,false
+P10,0.073894700,-0.074390300,-0.041220000,false,true,false
+P2,0.031919700,-0.080487100,0.076716000,true,true,false
+P3,-0.053007300,-0.078787800,0.055940000,true,true,false
+P4,0.055666700,-0.078560200,0.056561000,true,true,false
+P5,-0.067272300,-0.076290700,0.028382000,true,true,false
+P6,0.067887700,-0.075904300,0.028091000,true,true,false
+P7,-0.072434300,-0.073452700,-0.002487000,true,true,true
+P8,0.073055700,-0.073068300,-0.002540000,true,true,true
+P9,-0.073009300,-0.073765700,-0.040998000,false,true,false
+PO1,-0.018972400,-0.101768000,0.046536000,false,true,false
+PO10,0.054987600,-0.098091100,-0.035541000,true,true,false
+PO2,0.019877600,-0.101793000,0.046393000,false,true,false
+PO3,-0.036511400,-0.100852900,0.037167000,true,true,false
+PO4,0.036781600,-0.100849100,0.036397000,true,true,false
+PO5,-0.048424400,-0.099340800,0.021599000,false,true,false
+PO6,0.049819600,-0.099446100,0.021727000,false,true,false
+PO7,-0.054840400,-0.097527900,0.002792000,true,true,false
+PO8,0.055666600,-0.097625100,0.002730000,true,true,false
+PO9,-0.054910400,-0.098044800,-0.035465000,true,true,false
+POZ,0.000215600,-0.102178000,0.050608000,true,true,false
+PZ,0.000324700,-0.081115000,0.082615000,true,true,false
+T10,0.085559900,-0.016361300,-0.048271000,false,true,false
+T3,-0.084161100,-0.016018700,-0.009346000,true,true,false
+T4,0.085079900,-0.015020300,-0.009490000,true,true,false
+T5,-0.072434300,-0.073452700,-0.002487000,true,true,false
+T6,0.073055700,-0.073068300,-0.002540000,true,true,false
+T7,-0.084161100,-0.016018700,-0.009346000,true,true,true
+T8,0.085079900,-0.015020300,-0.009490000,true,true,true
+T9,-0.085894100,-0.015828700,-0.048283000,false,true,false
+TP10,0.086161800,-0.047035300,-0.045869000,true,true,false
+TP7,-0.084830200,-0.046021700,-0.007056000,true,true,false
+TP8,0.085548800,-0.045545300,-0.007130000,true,true,false
+TP9,-0.085619200,-0.046514700,-0.045707000,true,true,false
+
+    `;
+
+      document.addEventListener('DOMContentLoaded', generatePlot);
+
+      function generatePlot() {
+        const lines = csvData.trim().split(/\r?\n/);
+        const headers = lines[0].split(',');
+
+        const xCol = headers.indexOf('x');
+        const yCol = headers.indexOf('y');
+        const zCol = headers.indexOf('z');
+        const trainingCol = headers.indexOf('foundation_training');
+        const testColPeers = headers.indexOf('peers_evaluation');
+
+        const groups = {
+
+          foundationTraining: {
+            name: 'channels present in foundation training',
+            x: [], y: [], z: [], text: []
+          },
+          peersEvaluation: {
+            name: 'unseen channels during training',
+            x: [], y: [], z: [], text: []
+          },
+        };
+
+        for (let i = 1; i < lines.length; i++) {
+          const row = lines[i].split(',');
+
+          const training = row[trainingCol] === 'true';
+          const peersEvaluation = row[testColPeers] === 'true';
+
+          let group;
+
+          if (training) {
+            group = groups.foundationTraining;
+
+          } else if (peersEvaluation) {
+            group = groups.peersEvaluation;
+
+          } else {
+            continue;
+          }
+
+          group.x.push(parseFloat(row[xCol]));
+          group.y.push(parseFloat(row[yCol]));
+          group.z.push(parseFloat(row[zCol]));
+          group.text.push(row[0]);
+        }
+
+        const plotTraces = Object.values(groups)
+          .filter(group => group.x.length > 0)
+          .map(group => ({
+            x: group.x,
+            y: group.y,
+            z: group.z,
+            text: group.text,
+            hovertemplate:
+            '<b>%{text}</b><br>' +
+            'x: %{x:.8f}<br>' +
+            'y: %{y:.8f}<br>' +
+            'z: %{z:.8f}' +
+            '<extra>%{fullData.name}</extra>',
+            mode: 'markers',
+            type: 'scatter3d',
+            name: group.name,
+            marker: {
+              size: 7,
+
+
+            }
+          }));
+
+        const layout = {
+          legend: {
+            orientation: 'h',
+            y: -0.15
+          },
+          scene: {
+            xaxis: { title: 'X' },
+            yaxis: { title: 'Y' },
+            zaxis: { title: 'Z' }
+          },
+          margin: { l: 0, r: 0, b: 0, t: 40 }
+        };
+
+        Plotly.newPlot('plotter', plotTraces, layout, {
+          responsive: true
+        });
+      }
+    </script>
+    <p class="has-text-centered">Electrode channels present in foundation training and evaluation.</p>
+  </div>
+</section>
+<!-- End Visualization of Electrode Positions -->
+
+
+<!-- Preview of the full Paper -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title">Read the Full Paper</h2>
+      <iframe src="static/pdfs/NeuroShield_Paper_arXiv.pdf"
+              width="100%"
+              height="550"
+              Your browser does not support embedded PDFs.>
+              <a href="https://arxiv.org/pdf/2606.20673">Open the paper on arXiv.</a>
+      </iframe>
+    </div>
+  </div>
+</section>
+<!--End preview of the full Paper -->
+
+<!-- Code Example -->
+<section class="section hero is-light" id="code-example">
+  <div class="hero-body">
+    <div class="container is-max-desktop content">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Code Example</h2>
+          <div class="content has-text-justified">
+            <p>
+              The source code is publicly available on GitHub. Clone the repository using:
+            </p>
+            <pre id="github-clone"><code>gh repo clone kit-ps/NeuroShield-FM</code></pre>
+            <p>
+              The simplest model input is a NumPy archive containing EEG windows
+              (shape [N, C, T], dtype float32), a channel-validity mask
+              (shape [N, C], dtype bool), and 3D channel positions
+              (shape [N, C, 3], dtype float32).
+            </p>
+            <p>
+              Here, N denotes the number of windows, C the number of channel slots in
+              the batch, and T the number of samples per window.
+            </p>
+
+            <pre id="minimal_inference-example-code"><code>python examples/minimal_inference.py --input-npz sample_batch.npz
+        --output-npy sample_embeddings.npy</code></pre>
+            <p>
+              The `.npz` file must contain the arrays `X`, `M`, and `P`.
+
+              The script then loads the pretrained checkpoint from ckpts_bw_replicate_varlen/ and writes one embedding per input window.
+            </p>
+            <pre id="model-example-code"><code>mod = _import_train_module(str(args.cuda_devices))
+          device = _resolve_device(mod, str(args.cuda_devices))
+          model, embed_dim = mod.build_model(
+          trial=None,
+          num_channels=len(mod.REF_CLIST_NORM),
+          device=device,
+          fixed_params=trial_params,
+    )</code></pre>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+<!-- End Code Example -->
+
+<!--BibTex citation -->
+  <section class="section hero" id="bibtex">
+    <div class="hero-body">
+      <div class="container is-max-desktop content">
+        <div class="bibtex-header">
+          <h2 class="title">BibTeX</h2>
+          <button class="copy-bibtex-btn" onclick="copyBibTeX()" title="Copy BibTeX to clipboard">
+            <i class="fas fa-copy"></i>
+            <span class="copy-text">Copy</span>
+          </button>
+        </div>
+        <pre id="bibtex-code"><code>@article{fallahi2026neuroshield,
+          title     = {NeuroShield: A Device-Agnostic Foundation Model for EEG Authentication},
+          author    = {Fallahi, Matin and Arias-Cabarcos, Patricia and Strufe, Thorsten},
+          journal   = {arXiv preprint arXiv:2606.20673},
+          year      = {2026},
+          doi       = {10.48550/arXiv.2606.20673},
+          url       = {https://arxiv.org/abs/2606.20673}
+
+}</code></pre>
+      </div>
+    </div>
+</section>
+<!--End BibTex citation -->
+
+
+  <footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+
+          <p>
+            This website was developed by <strong>Lynn Keil</strong> for the NeuroShield project.
+            It is based on the
+            <a href="https://github.com/eliahuhorwitz/Academic-project-page-template">Academic Project Page Template</a>,
+            which was adopted from the
+            <a href="https://nerfies.github.io">Nerfies project page</a>.
+            Additional code was adapted from the
+            <a href="https://brain-bzh.github.io/reve/">REVE project website</a>.
+            We gratefully acknowledge the original authors for making their code publicly available.
+          </p>
+
+          <p>
+            This website is licensed under the
+            <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+              Creative Commons Attribution-ShareAlike 4.0 International License
+            </a>.
+            You are welcome to reuse and adapt the source code, provided that appropriate attribution
+            is given to the original authors and to this website.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+</main>
+  </body>
+  </html>
